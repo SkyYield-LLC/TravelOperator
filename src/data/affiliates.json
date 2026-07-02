@@ -7,7 +7,9 @@
     "network": "firstpromoter",
     "status": "active",
     "category": "all-in-one-marketing",
-    "notes": "Carried over from TravelOperator — VERIFY with GHL whether the same fp_ref code can be used for promoting from traveloperator.io or if a separate registration is required."
+    "notes": "Carried over from TravelOperator \u2014 VERIFY with GHL whether the same fp_ref code can be used for promoting from traveloperator.io or if a separate registration is required.",
+    "applicationStatus": "approved",
+    "approvedAt": "2026-07-02T20:00:00Z"
   },
   {
     "slug": "invideo",
@@ -64,7 +66,9 @@
     "commission": "50% recurring",
     "network": "direct",
     "status": "active",
-    "category": "email-marketing"
+    "category": "email-marketing",
+    "applicationStatus": "approved",
+    "approvedAt": "2026-07-02T20:00:00Z"
   },
   {
     "slug": "surveysparrow",
@@ -85,7 +89,9 @@
     "commission": "Impact affiliate",
     "network": "impact",
     "status": "active",
-    "category": "HR & Employee Engagement"
+    "category": "HR & Employee Engagement",
+    "applicationStatus": "approved",
+    "approvedAt": "2026-07-02T20:00:00Z"
   },
   {
     "slug": "retouch4me",
@@ -106,7 +112,9 @@
     "commission": "10% recurring",
     "network": "rewardful",
     "status": "active",
-    "category": "Documents & E-Signatures"
+    "category": "Documents & E-Signatures",
+    "applicationStatus": "approved",
+    "approvedAt": "2026-07-02T20:00:00Z"
   },
   {
     "slug": "profitbooks",
@@ -115,7 +123,9 @@
     "commission": "30% recurring 3 years",
     "network": "other",
     "status": "active",
-    "category": "Accounting"
+    "category": "Accounting",
+    "applicationStatus": "approved",
+    "approvedAt": "2026-07-02T20:00:00Z"
   },
   {
     "slug": "clickfunnels",
@@ -124,7 +134,9 @@
     "commission": "30% recurring",
     "network": "direct",
     "status": "active",
-    "category": "Sales Funnels"
+    "category": "Sales Funnels",
+    "applicationStatus": "approved",
+    "approvedAt": "2026-07-02T20:00:00Z"
   },
   {
     "slug": "moosend",
@@ -145,7 +157,9 @@
     "commission": "50% for 3-4 years",
     "network": "direct",
     "status": "active",
-    "category": "Invoicing"
+    "category": "Invoicing",
+    "applicationStatus": "approved",
+    "approvedAt": "2026-07-02T20:00:00Z"
   },
   {
     "slug": "vrbo",
@@ -154,7 +168,9 @@
     "commission": "referral",
     "network": "direct",
     "status": "active",
-    "category": "Travel & Rental Marketplace"
+    "category": "Travel & Rental Marketplace",
+    "applicationStatus": "approved",
+    "approvedAt": "2026-07-02T20:00:00Z"
   },
   {
     "slug": "cloudways",
@@ -163,7 +179,9 @@
     "commission": "$30 + 7% lifetime",
     "network": "direct",
     "status": "active",
-    "category": "Hosting"
+    "category": "Hosting",
+    "applicationStatus": "approved",
+    "approvedAt": "2026-07-02T20:00:00Z"
   },
   {
     "slug": "expedia",
@@ -179,7 +197,7 @@
     "name": "Duda",
     "url": "https://duda.sjv.io/vDQBkN",
     "network": "impact",
-    "commission": "—",
+    "commission": "\u2014",
     "status": "active",
     "category": "website-builder",
     "notes": "Added 2026-06-16 via bulk affiliate import.",
@@ -195,17 +213,19 @@
     "commission": "referral",
     "status": "active",
     "category": "Document Automation",
-    "notes": "Cross-pollinated 2026-06-16 — partner active elsewhere in portfolio."
+    "notes": "Cross-pollinated 2026-06-16 \u2014 partner active elsewhere in portfolio.",
+    "applicationStatus": "approved",
+    "approvedAt": "2026-07-02T20:00:00Z"
   },
   {
     "slug": "ringplanet",
     "name": "RingPlanet",
     "url": "https://preferredlongdistance.pxf.io/yZj0Ay",
     "network": "impact",
-    "commission": "—",
+    "commission": "\u2014",
     "status": "active",
     "category": "voip-business-phone",
-    "notes": "Cross-pollinated 2026-06-16 — partner active elsewhere in portfolio.",
+    "notes": "Cross-pollinated 2026-06-16 \u2014 partner active elsewhere in portfolio.",
     "externalProgramId": "41090",
     "applicationStatus": "approved",
     "approvedAt": "2026-06-30T18:12:16.603Z"
@@ -218,22 +238,10 @@
     "commission": "20% recurring",
     "status": "active",
     "category": "Email Marketing",
-    "notes": "Cross-pollinated 2026-06-16 — partner active elsewhere in portfolio.",
+    "notes": "Cross-pollinated 2026-06-16 \u2014 partner active elsewhere in portfolio.",
     "externalProgramId": "21260",
     "applicationStatus": "approved",
     "approvedAt": "2026-06-30T18:12:16.603Z"
-  },
-  {
-    "slug": "munch",
-    "name": "Munch",
-    "url": "https://munchstudio.com",
-    "commission": "Recurring Subscription",
-    "network": "impact",
-    "status": "active",
-    "category": "Social Media · SMB",
-    "externalProgramId": "42530",
-    "applicationStatus": "approved",
-    "approvedAt": "2026-06-29T20:00:00Z"
   },
   {
     "slug": "thinkific",
