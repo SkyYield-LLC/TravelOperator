@@ -1,5 +1,6 @@
 ---
 import Article from '../../layouts/Article.astro';
+import CtaCard from '../../components/CtaCard.astro';
 ---
 <Article
   title='FareHarbor Review 2026: Booking & Distribution for Activities'
@@ -8,6 +9,15 @@ import Article from '../../layouts/Article.astro';
   category='reviews'
   readTime='11 min read'
 >
+
+<CtaCard
+  slug='fareharbor'
+  title='FareHarbor'
+  rating={4.2}
+  bestFor='Operators serious about FareHarbor'
+  ctaLabel='Try FareHarbor →'
+/>
+
 
 <div class="verdict-box">
 <strong>Bottom Line:</strong> FareHarbor remains the dominant booking and distribution platform for tour and activity operators in 2026. The zero monthly fee model makes it accessible for new operators, but the per-booking transaction fees compound significantly at scale. Distribution reach through OTAs is unmatched, though operators running 10+ locations need to carefully model their true cost-per-booking against alternatives. Best for operators prioritizing channel reach over margin optimization.

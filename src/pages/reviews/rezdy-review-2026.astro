@@ -1,5 +1,6 @@
 ---
 import Article from '../../layouts/Article.astro';
+import CtaCard from '../../components/CtaCard.astro';
 ---
 <Article
   title='Rezdy Review 2026: Booking Platform for Tour Operators'
@@ -8,6 +9,15 @@ import Article from '../../layouts/Article.astro';
   category='reviews'
   readTime='11 min read'
 >
+
+<CtaCard
+  slug='rezdy'
+  title='Rezdy'
+  rating={4.2}
+  bestFor='Operators serious about Rezdy'
+  ctaLabel='Try Rezdy →'
+/>
+
 
 <div class="verdict-box">
 <strong>Bottom Line:</strong> Rezdy remains the go-to booking platform for tour and activity operators who need robust distribution channel management. It handles complex availability rules, integrates with major OTAs, and scales reasonably well to 15+ locations. However, the per-booking transaction fees add up fast at high volume, and the reporting dashboard still lags behind competitors like FareHarbor and Peek.
