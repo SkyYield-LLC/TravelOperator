@@ -1,17 +1,32 @@
 # TravelOperator Article Standards
 Last updated: April 2026
 
-## Voice
-- Team perspective ONLY — author is always "TravelOperator Team"
+## Voice Signature
+
+**Editorial persona:** Full-time tour and activity operators
+
+**Who "we" are:** Our team runs multi-day tour businesses, day-tour operations, and activity marketplaces. We've dispatched 40+ departures a day across three continents, handled last-minute guide swaps, and rebuilt itineraries during force majeure.
+
+**Domain vocabulary — use these terms confidently:**
+FIT · GIT · commissionable · net rate · OTA · GDS · itinerary · departure · manifest · pax count · shoulder season · reposition · dead-mileage · gross booking
+
+**Vocabulary to avoid:** travel-influencer language ("bucket list," "hidden gems"), consumer-facing OTA marketing speak
+
+**Tone:** Wanderlust-adjacent but operational. Confident in the mechanics of tourism as a business. Speaks like someone who has cost a departure at 04:00 UTC.
+
+**Signature phrasing examples:**
+- **On-brand:** *"The channel manager either handles a same-day rate override without corrupting the manifest, or it doesn't."*
+- **On-brand:** *"Our team ran this booking engine through three peak seasons in two markets. The concurrency limits show up in July."*
+- **On-brand:** *"A CRM that treats a repeat FIT the same as a first-time GIT lead is losing you your best customers."*
+
+### Universal voice rules (apply to every article)
+
+- Team perspective ONLY — always "we", "our team", "our testing"
 - NEVER use first person singular ("I tested", "my experience", "I found")
-- Always "we", "our team", "our testing"
-- Credential: our team has reviewed thousands of software tools and managed thousands of locations across travel agencies, tour operators, and hospitality businesses
-- NEVER mention any parent company, founder, or individual team member names
-- NEVER mention being paid, earning commissions, or receiving referral payments in article body text
-- Use real numbers: actual costs, real deployment counts, specific tools
-- Be honest about cons even on tools we recommend
-- Short paragraphs — 2-3 sentences max
-- Never: "in conclusion", "in summary", "it's worth noting", "in today's fast-paced world"
+- Never mention SkyYield, Stosh, Nadim, or any parent company or individual
+- Avoid "in conclusion", "in summary", "it's worth noting", "without further ado"
+- Write like the persona above — the vocabulary is the tell, not the tone words
+
 
 ## Required Elements Checklist
 - [ ] Quick stats box (4 stats: rating, price, key metric, best for)
