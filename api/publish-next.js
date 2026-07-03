@@ -237,10 +237,14 @@ Target keyword: ${article.keyword}
 Category: ${article.category}
 Affiliate links (max 3 CTAs): ${affiliateInfo}
 
-Output a COMPLETE .astro file using this exact structure — no markdown fences, no explanation, raw file content only:
+Output a COMPLETE .astro file using this exact structure — no markdown fences, no explanation, raw file content only. Use the rich components (CtaCard, ComparisonTable, ProsCons, StarRating) instead of plain divs whenever possible — they emit better schema and drive higher CTR:
 
 ---
 import Article from '../../layouts/Article.astro';
+import CtaCard from '../../components/CtaCard.astro';
+import ComparisonTable from '../../components/ComparisonTable.astro';
+import ProsCons from '../../components/ProsCons.astro';
+import StarRating from '../../components/StarRating.astro';
 ---
 <Article
   title='${article.title}'
@@ -251,20 +255,40 @@ import Article from '../../layouts/Article.astro';
 >
 
 Article body requirements:
-1. verdict-box div at top with bottom line up front
-2. quick-stats div with 4 stats: rating, price, key metric, affiliate %
-3. H2 headings with emoji and id attributes throughout
-4. Sections in order: What Is [Tool], Our Experience (reference managing thousands of locations), Key Features (H3 for each), Pricing (HTML table), Pros & Cons (pros-cons div with pros and cons divs inside), Who It's For, Final Verdict
-5. At least 2 callout divs using classes: callout-blue (tips), callout-orange (warnings), callout-green (further reading)
-6. Affiliate CTAs using the EXACT affiliate tracking URL provided above — never use placeholder URLs. Format:
+
+1. verdict-box div at top with bottom line up front (2-3 sentences, the honest verdict)
+
+2. RIGHT AFTER the verdict-box, insert an "Our Pick" component using CtaCard:
+   <CtaCard slug='[primary affiliate slug]' title='[Product name]' rating={[0-5 with .1 precision]} bestFor='[audience]' price='[price/mo or one-liner]' ctaLabel='Try [Product] →' />
+   Only include this if the article is about ONE primary product (single-tool review). Skip for pure "best-of" listicles.
+
+3. quick-stats div with 4 stats: rating, price, key metric, affiliate %
+
+4. H2 headings with emoji and id attributes throughout
+
+5. Sections in order: What Is [Tool], Our Experience (reference managing thousands of tour departures), Key Features (H3 for each), Pricing (HTML table), Pros & Cons (USE <ProsCons pros={[...]} cons={[...]} /> component — NOT plain divs), Who It's For, Final Verdict
+
+6. IF the article is a "vs" comparison or "best-of" listicle: include a <ComparisonTable /> component near the top showing the products side-by-side on 5-8 features. Example:
+   <ComparisonTable columns={['Product A', 'Product B']} rows={[
+     { feature: 'Starting price', values: ['$29/mo', '$49/mo'] },
+     { feature: 'Multi-location support', values: [true, false] },
+   ]} />
+
+7. At least 2 callout divs using classes: callout-blue (tips), callout-orange (warnings), callout-green (further reading)
+
+8. Affiliate CTAs using the EXACT affiliate tracking URL provided above — never use placeholder URLs. Format:
    <a href='[EXACT TRACKING URL FROM ABOVE]' class='affiliate-cta'>
      [Specific CTA text] →
    </a>
    Do NOT add any disclaimer text after CTAs. Maximum 3 CTAs: after intro, mid-article, end
-7. FAQPage JSON-LD script block at end with 3-5 operator Q&As
-8. callout-green Further Reading div with 3 internal links to real existing pages on operatorstack.tech
-9. 1,800-2,400 words total
-10. At least 3 internal links in body content
+
+9. FAQPage JSON-LD script block at end with 3-5 tour operator Q&As
+
+10. callout-green Further Reading div with 3 internal links to real existing pages on traveloperator.io
+
+11. 1,800-2,400 words total
+
+12. At least 3 internal links in body content
 
 </Article>`;
 
