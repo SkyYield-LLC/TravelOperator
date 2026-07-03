@@ -279,5 +279,16 @@ const websiteLd = {
     });
   </script>
 
+
+  {/* portfolio-analytics — server-side pageview tracker (ad-blocker proof) */}
+  <img
+    src={`https://portfolio-analytics.vercel.app/api/pv?s=sk_traveloperator&u=${encodeURIComponent(Astro.url.toString())}&r=${encodeURIComponent(Astro.request.headers.get('referer') ?? '')}`}
+    alt=""
+    width="1"
+    height="1"
+    style="position:absolute;left:-9999px;top:-9999px"
+    loading="eager"
+  />
+
 </body>
 </html>
