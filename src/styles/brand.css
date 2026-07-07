@@ -31,7 +31,7 @@
   text-shadow: 0 0 8px rgba(232, 226, 248, 0.18);
 }
 .to-wordmark .logo-word-2 {
-  color: #7c4fd4;
+  color: var(--brandAccent);
   text-shadow: 0 0 12px rgba(124, 79, 212, 0.45);
 }
 
@@ -63,7 +63,7 @@
 }
 
 .section-label {
-  color: #9d76e8;
+  color: var(--brandAccent);
   font-family: 'Bebas Neue', sans-serif;
   font-size: 1rem;
   text-transform: uppercase;
