@@ -1,10 +1,11 @@
 ---
 import { getAffiliate } from '../data/affiliates';
+import productsJson from '../data/products.json';
 
 interface Props {
-  /** Slug from src/data/affiliates.ts */
+  /** Slug from src/data/affiliates.ts (registered) or src/data/products.json (fallback) */
   slug: string;
-  /** Optional override for the visible link text. Defaults to the affiliate name. */
+  /** Optional override for the visible link text. Defaults to the affiliate name or slug. */
   label?: string;
   /** Render as a button (CTA) instead of inline link. */
   cta?: boolean;
@@ -13,16 +14,28 @@ interface Props {
 
 const { slug, label, cta = false, class: className = '' } = Astro.props;
 const affiliate = getAffiliate(slug);
+const productFallback = (productsJson as Record<string, string>)[slug];
 
-// Soft-fail: if the slug isn't in affiliates.json, still render a link.
-// The /recommends/<slug> URL will 404 at runtime but the build succeeds
-// and the visual presentation renders correctly. This is UX debt to fix
-// (add the affiliate, or update the retrofit), not a build failure.
-if (!affiliate) {
-  console.warn(`[AffiliateLink] unknown slug "${slug}" — falling back to plain redirect`);
+// Three-tier resolution:
+//   1. If slug is a registered affiliate → /recommends/<slug> (goes through cloak, tracked)
+//   2. Else if slug has a product-homepage fallback → link direct to product (no commission,
+//      but clean UX; article stays live for SEO). Add rel=sponsored anyway.
+//   3. Else → hard fallback href=# with data-fix marker; log a build-time warning so the
+//      slug can be added to affiliates.json (via stacksites-admin) or products.json.
+let href: string;
+let external = false;
+if (affiliate) {
+  href = `/recommends/${slug}`;
+} else if (productFallback) {
+  href = productFallback;
+  external = true;
+  console.warn(`[AffiliateLink] slug "${slug}" not in affiliates.json — using product fallback ${productFallback}`);
+} else {
+  href = '#';
+  external = false;
+  console.warn(`[AffiliateLink] slug "${slug}" not in affiliates.json OR products.json — emitting href="#"; add to stacksites-admin`);
 }
 
-const href = `/recommends/${slug}`;
 const text = label ?? affiliate?.name ?? slug;
 const classes = cta ? `affiliate-cta ${className}` : `affiliate-link ${className}`;
 ---
@@ -32,6 +45,7 @@ const classes = cta ? `affiliate-cta ${className}` : `affiliate-link ${className
   rel="sponsored nofollow noopener"
   target="_blank"
   data-affiliate={slug}
+  data-affiliate-status={affiliate ? 'registered' : productFallback ? 'product-fallback' : 'unknown'}
 >
   {cta ? <>{text} →</> : text}<slot />
 </a>

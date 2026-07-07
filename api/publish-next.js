@@ -29,6 +29,43 @@ async function loadAffiliatePrograms(githubToken) {
     return {};
   }
 }
+
+// publish-gate:v1 — Product fallback registry + auto-heal
+async function loadProductRegistry(githubToken) {
+  try {
+    const res = await fetch(
+      `https://api.github.com/repos/${GITHUB_REPO}/contents/src/data/products.json?ref=${GITHUB_BRANCH}`,
+      { headers: ghHeaders(githubToken) }
+    );
+    if (!res.ok) return {};
+    const file = await res.json();
+    const data = JSON.parse(Buffer.from(file.content, 'base64').toString('utf-8'));
+    return (data && typeof data === 'object') ? data : {};
+  } catch (_) { return {}; }
+}
+
+// Rewrites every /recommends/<slug> in the generated article:
+//   - if slug is registered as an affiliate → normalize to relative /recommends/<slug>
+//   - else if slug is in the product registry → replace with product homepage + rel="nofollow noopener sponsored"
+//   - else → strip href (prevents 404s escaping into the article)
+function autoHealRecommends(content, AFFILIATE_PROGRAMS, PRODUCT_REGISTRY) {
+  const changes = [];
+  const re = /(href=)(['"])([^'"]*\/recommends\/([a-z0-9-]+))(['"])/gi;
+  const healed = content.replace(re, (m, attr, q, _url, slug, qq) => {
+    if (AFFILIATE_PROGRAMS[slug]) {
+      changes.push({ slug, action: 'ok' });
+      return `${attr}${q}/recommends/${slug}${qq}`;
+    }
+    const product = PRODUCT_REGISTRY[slug];
+    if (product) {
+      changes.push({ slug, action: 'product-fallback' });
+      return `${attr}${q}${product}${qq} rel=${q}nofollow noopener sponsored${qq}`;
+    }
+    changes.push({ slug, action: 'unknown' });
+    return `${attr}${q}#${qq} data-fix=${q}unknown-slug-${slug}${qq}`;
+  });
+  return { healed, changes };
+}
 export default async function handler(req, res) {
   const githubToken = process.env.GITHUB_TOKEN;
   const anthropicKey = process.env.ANTHROPIC_API_KEY;
@@ -39,6 +76,7 @@ export default async function handler(req, res) {
 
   // ── Step 0: Load latest affiliate registry from the repo ──
   const AFFILIATE_PROGRAMS = await loadAffiliatePrograms(githubToken);
+  const PRODUCT_REGISTRY = await loadProductRegistry(githubToken);
 
   // ── Step 1: Read queue.json from GitHub ──
   let queueData, queueSha;
@@ -75,6 +113,18 @@ export default async function handler(req, res) {
 
   if (!generatedContent) {
     return res.status(500).json({ error: 'Empty content from Claude' });
+  }
+
+  // publish-gate:v1 — auto-heal /recommends/ hrefs against registered affiliates + product fallbacks
+  {
+    const healResult = autoHealRecommends(generatedContent, AFFILIATE_PROGRAMS, PRODUCT_REGISTRY);
+    generatedContent = healResult.healed;
+    const counts = healResult.changes.reduce((acc, c) => (acc[c.action] = (acc[c.action] || 0) + 1, acc), {});
+    console.log(`[publish-gate] ${article.slug}: ${JSON.stringify(counts)}`);
+    const unknowns = [...new Set(healResult.changes.filter(c => c.action === 'unknown').map(c => c.slug))];
+    if (unknowns.length) {
+      console.warn(`[publish-gate] ${article.slug} unknown slugs (add to affiliates.json or products.json): ${unknowns.join(', ')}`);
+    }
   }
 
   // ── Step 4: Determine file path ──
