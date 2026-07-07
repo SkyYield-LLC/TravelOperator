@@ -6,27 +6,27 @@
   "redirects": [
     {
       "source": "/recommends/gohighlevel",
-      "destination": "https://www.gohighlevel.com/?fp_ref=stosh61",
+      "destination": "https://www.gohighlevel.com/?fp_ref=stosh61&xref=traveloperator",
       "permanent": false
     },
     {
       "source": "/recommends/invideo",
-      "destination": "https://invideo.sjv.io/MX07zn",
+      "destination": "https://invideo.sjv.io/MX07zn?SubId1=traveloperator",
       "permanent": false
     },
     {
       "source": "/recommends/munch-studio",
-      "destination": "https://goto.munchstudio.com/B5zEM1",
+      "destination": "https://goto.munchstudio.com/B5zEM1?SubId1=traveloperator",
       "permanent": false
     },
     {
       "source": "/recommends/sparrowdesk",
-      "destination": "https://sparrowdesk.pxf.io/AgmG9J",
+      "destination": "https://sparrowdesk.pxf.io/AgmG9J?SubId1=traveloperator",
       "permanent": false
     },
     {
       "source": "/recommends/melio",
-      "destination": "https://melio.sjv.io/bkDbo9",
+      "destination": "https://melio.sjv.io/bkDbo9?SubId1=traveloperator",
       "permanent": false
     },
     {
@@ -36,22 +36,22 @@
     },
     {
       "source": "/recommends/surveysparrow",
-      "destination": "https://surveysparrowinc.pxf.io/zzegVO",
+      "destination": "https://surveysparrowinc.pxf.io/zzegVO?SubId1=traveloperator",
       "permanent": false
     },
     {
       "source": "/recommends/thrivesparrow",
-      "destination": "https://thrivesparrow.sjv.io/aN54qq",
+      "destination": "https://thrivesparrow.sjv.io/aN54qq?SubId1=traveloperator",
       "permanent": false
     },
     {
       "source": "/recommends/retouch4me",
-      "destination": "https://relu0u.pxf.io/rEGBZd",
+      "destination": "https://relu0u.pxf.io/rEGBZd?SubId1=traveloperator",
       "permanent": false
     },
     {
       "source": "/recommends/esignly",
-      "destination": "https://www.esignly.com/?via=stosh",
+      "destination": "https://www.esignly.com/?via=stosh&ref=traveloperator",
       "permanent": false
     },
     {
@@ -66,7 +66,7 @@
     },
     {
       "source": "/recommends/moosend",
-      "destination": "https://trymoo.moosend.com/68v8v144fh7a",
+      "destination": "https://trymoo.moosend.com/68v8v144fh7a?xref=traveloperator",
       "permanent": false
     },
     {
@@ -91,7 +91,7 @@
     },
     {
       "source": "/recommends/duda",
-      "destination": "https://duda.sjv.io/vDQBkN",
+      "destination": "https://duda.sjv.io/vDQBkN?SubId1=traveloperator",
       "permanent": false
     },
     {
@@ -101,12 +101,22 @@
     },
     {
       "source": "/recommends/ringplanet",
-      "destination": "https://preferredlongdistance.pxf.io/yZj0Ay",
+      "destination": "https://preferredlongdistance.pxf.io/yZj0Ay?SubId1=traveloperator",
       "permanent": false
     },
     {
       "source": "/recommends/omnisend",
-      "destination": "https://your.omnisend.com/n4RkQ6",
+      "destination": "https://your.omnisend.com/n4RkQ6?SubId1=traveloperator",
+      "permanent": false
+    },
+    {
+      "source": "/recommends/thinkific",
+      "destination": "https://www.thinkific.com/?xref=traveloperator",
+      "permanent": false
+    },
+    {
+      "source": "/recommends/kit",
+      "destination": "https://kit.com/?xref=traveloperator",
       "permanent": false
     }
   ],
