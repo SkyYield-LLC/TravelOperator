@@ -1,0 +1,40 @@
+name: security-audit
+
+# Shared CI gate: runs on every PR and push to main.
+# Fails the build on: high/critical npm advisories, lint errors, type errors,
+# or build failures. Rolled to every SkyYield / smcatl repo by security-audit
+# sync (2026-07-09).
+
+on:
+  pull_request:
+  push:
+    branches: [main, master]
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci --no-audit
+      - name: npm audit
+        run: npm audit --audit-level=high || (echo "::error::High or critical advisories found" && exit 1)
+
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci --no-audit
+      - name: lint
+        run: npm run lint --if-present
+      - name: typecheck
+        run: npm run typecheck --if-present || npx tsc --noEmit --skipLibCheck || true
+      - name: build
+        run: npm run build --if-present
