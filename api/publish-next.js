@@ -1,3 +1,5 @@
+import { requirePublishSecret } from './_lib/auth.js';
+
 const GITHUB_REPO = 'smcatl/TravelOperator';
 const GITHUB_BRANCH = 'main';
 
@@ -67,6 +69,7 @@ function autoHealRecommends(content, AFFILIATE_PROGRAMS, PRODUCT_REGISTRY) {
   return { healed, changes };
 }
 export default async function handler(req, res) {
+  if (!requirePublishSecret(req, res)) return;
   const githubToken = process.env.GITHUB_TOKEN;
   const anthropicKey = process.env.ANTHROPIC_API_KEY;
 
