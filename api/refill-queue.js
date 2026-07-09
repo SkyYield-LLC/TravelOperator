@@ -1,3 +1,5 @@
+import { requirePublishSecret } from './_lib/auth.js';
+
 const GITHUB_REPO = 'smcatl/OperatorStack';
 const GITHUB_BRANCH = 'main';
 const MIN_QUEUED = 8;
@@ -43,6 +45,7 @@ const AFFILIATE_PROGRAMS = {
 };
 
 export default async function handler(req, res) {
+  if (!requirePublishSecret(req, res)) return;
   const githubToken = process.env.OSGIT_TOKEN;
   const anthropicKey = process.env.ANTHROPIC_API_KEY;
 

@@ -1,3 +1,5 @@
+import { requirePublishSecret } from './_lib/auth.js';
+
 /**
  * Article generator — env-driven, emits MDX targeting content collections.
  *
@@ -8,6 +10,7 @@
  * publish-next.js writes the file to src/content/<category>/<slug>.mdx.
  */
 export default async function handler(req, res) {
+  if (!requirePublishSecret(req, res)) return;
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
