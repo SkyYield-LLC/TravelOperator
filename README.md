@@ -21,13 +21,13 @@ Each affiliate site we run shares ~95% of its layout, components, SEO scaffoldin
 ## Spinning up a new vertical
 
 ```bash
-# 1. Create a new GitHub repo (e.g. smcatl/newstack)
-gh repo create smcatl/newstack --public
+# 1. Create a new GitHub repo (e.g. SkyYield-LLC/newstack)
+gh repo create SkyYield-LLC/newstack --public
 
 # 2. Clone stackbase as the starting point
-git clone https://github.com/smcatl/stackbase.git newstack
+git clone https://github.com/SkyYield-LLC/stackbase.git newstack
 cd newstack
-git remote set-url origin https://github.com/smcatl/newstack.git
+git remote set-url origin https://github.com/SkyYield-LLC/newstack.git
 git push -u origin main
 
 # 3. Configure
