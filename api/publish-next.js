@@ -1,6 +1,6 @@
 import { requirePublishSecret } from './_lib/auth.js';
 
-const GITHUB_REPO = 'smcatl/TravelOperator';
+const GITHUB_REPO = process.env.PUBLISH_TARGET_REPO || (process.env.VERCEL_GIT_REPO_OWNER && process.env.VERCEL_GIT_REPO_SLUG ? `${process.env.VERCEL_GIT_REPO_OWNER}/${process.env.VERCEL_GIT_REPO_SLUG}` : 'SkyYield-LLC/TravelOperator');
 const GITHUB_BRANCH = 'main';
 
 // dynamic-affiliates:auto-managed
