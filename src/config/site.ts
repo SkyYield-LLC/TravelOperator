@@ -61,11 +61,6 @@ export const site = {
 
   // Analytics + verification
   // Analytics + verification — source of truth: src/data/site-settings.json,
-  // managed via the stacksites-admin UI. Do NOT hardcode here.
-  plausibleScript: settings.plausibleScriptId
-    ? `https://plausible.io/js/${settings.plausibleScriptId}.js`
-    : '',
-  plausibleDomain: settings.plausibleDomain ?? '',
   impactCdnId: env.PUBLIC_IMPACT_CDN_ID ?? '',
   // Multiple codes supported: each one renders as its own <meta> tag.
   // Lets a single site verify both standalone + subdomain properties in GSC.

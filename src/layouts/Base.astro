@@ -159,16 +159,6 @@ const websiteLd = {
     <link href={site.fontGoogleUrl} rel="stylesheet" />
   )}
 
-  <!-- Plausible analytics -->
-  {site.plausibleScript && (
-    <>
-      <script async src={site.plausibleScript}></script>
-      <script is:inline>
-        window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
-        plausible.init()
-      </script>
-    </>
-  )}
 
   <!-- Site-wide structured data -->
   <script type="application/ld+json" set:html={JSON.stringify(orgLd)} />
