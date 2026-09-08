@@ -74,16 +74,52 @@ async function aweber(email) {
 async function resend(email) {
   const apiKey = required('RESEND_API_KEY');
   const audienceId = required('RESEND_AUDIENCE_ID');
-  const r = await fetch(`https://api.resend.com/audiences/${audienceId}/contacts`, {
+  const siteName = process.env.PUBLIC_SITE_NAME || 'the team';
+  const siteUrl = process.env.PUBLIC_SITE_URL || 'https://stackedoperator.com';
+  const siteNiche = process.env.PUBLIC_SITE_NICHE || 'your industry';
+
+  // 1) Add to audience
+  const addRes = await fetch(`https://api.resend.com/audiences/${audienceId}/contacts`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${apiKey}`,
-    },
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${apiKey}` },
     body: JSON.stringify({ email, unsubscribed: false }),
   });
-  if (!r.ok) throw new Error(`Resend ${r.status}`);
-  return await r.json();
+  if (!addRes.ok && addRes.status !== 409) throw new Error(`Resend add ${addRes.status}`);
+  const contact = addRes.ok ? await addRes.json() : {};
+
+  // 2) Fire welcome email (best-effort; log but don't fail subscription if this errors)
+  try {
+    const subject = `Welcome to ${siteName}`;
+    const html = `<div style="font-family:-apple-system,BlinkMacSystemFont,sans-serif;max-width:560px;line-height:1.6;color:#111;">
+      <p>Hi,</p>
+      <p>Thanks for subscribing to <strong>${siteName}</strong>.</p>
+      <p>You'll get one email a week: our team's take on the software ${siteNiche} actually use — no vendor fluff, no free-trial hot takes, no paid placements.</p>
+      <p>What to expect:</p>
+      <ul>
+        <li>New reviews and comparisons as they land</li>
+        <li>Occasional deep-dives on tools that are worth switching to</li>
+        <li>Alerts when a tool we recommended drops in quality</li>
+      </ul>
+      <p>Start here → <a href="${siteUrl}">${siteUrl.replace(/^https?:\/\//,'')}</a></p>
+      <p>— The ${siteName} Team</p>
+      <hr style="border:none;border-top:1px solid #eee;margin:2rem 0 1rem;">
+      <p style="font-size:0.8rem;color:#666;">You subscribed at ${siteUrl}. Reply to this email if you want off the list.</p>
+    </div>`;
+    await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${apiKey}` },
+      body: JSON.stringify({
+        from: `${siteName} <hello@stackedoperator.com>`,
+        to: [email],
+        subject,
+        html,
+      }),
+    });
+  } catch (err) {
+    console.warn('welcome email send failed:', err.message);
+  }
+
+  return contact;
 }
 
 function required(name) {
