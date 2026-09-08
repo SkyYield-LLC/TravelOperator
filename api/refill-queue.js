@@ -338,6 +338,7 @@ Make titles specific and operator-focused. Target keywords with clear commercial
       'Content-Type': 'application/json',
       'x-api-key': apiKey,
       'anthropic-version': '2023-06-01',
+      'anthropic-workspace-id': process.env.ANTHROPIC_WORKSPACE_ID,
     },
     body: JSON.stringify({
       model: 'claude-sonnet-4-20250514',
