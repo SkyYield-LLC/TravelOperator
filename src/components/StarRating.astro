@@ -4,8 +4,9 @@ interface Props {
   size?: 'sm' | 'md' | 'lg';
   showNumber?: boolean;
 }
-const { rating, size = 'md', showNumber = true } = Astro.props;
+const { rating: rawRating, size = 'md', showNumber = true } = Astro.props;
 
+const rating = Number.isFinite(Number(rawRating)) ? Math.max(0, Math.min(5, Number(rawRating))) : 0;
 const full = Math.floor(rating);
 const half = rating - full >= 0.5;
 const empty = 5 - full - (half ? 1 : 0);
