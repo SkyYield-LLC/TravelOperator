@@ -1,22 +1,73 @@
 ---
 import Base from '../layouts/Base.astro';
 import { site } from '../config/site';
+
+const orgSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": site.name,
+  "url": site.url,
+  "description": `Editorially independent software reviews for ${site.niche}.`,
+  "foundingDate": "2025",
+  "knowsAbout": [site.niche, "software reviews", "operator tools"],
+  "sameAs": [site.url],
+};
 ---
-<Base title={`About ${site.name}`} description={`${site.name} is an editorially independent review site for ${site.niche}. Reviews drawn from a team with thousands of deployments across their combined network.`}>
-  <div style="max-width:740px; margin:0 auto; padding:5rem 2rem;">
-    <p class="section-label">About this site</p>
-    <h1 style="font-family:'Syne',sans-serif; font-size:clamp(2rem,4vw,3rem); font-weight:800; color:var(--navy); margin-bottom:1.5rem; letter-spacing:-0.03em; line-height:1.1;">
-      Software reviews from operators who actually deploy it
-    </h1>
-    <p>
-      {site.tagline}
-    </p>
-    <p>
-      The {site.name} team has thousands of deployments across their combined network and careers in {site.niche}. Every review is based on real operational experience — not vendor demos, not free trials, not press kits.
-    </p>
-    <h2>Editorial standards</h2>
-    <p>
-      {site.name} is editorially independent. Rankings are never for sale. The {site.name} team evaluates every tool on operational merit — verdicts reflect what actually performs, not vendor relationships.
-    </p>
-  </div>
+<Base title={`About ${site.name}`} description={`${site.name} is an editorially independent review site for ${site.niche}. Every review comes from a team with thousands of real deployments — no vendor demos, no free-trial takes.`}>
+  <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+
+  <section style="background:linear-gradient(180deg, var(--brand-bg, #0b0b10) 0%, transparent 100%); padding:5rem 2rem 3rem;">
+    <div style="max-width:740px; margin:0 auto;">
+      <p class="section-label" style="font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--brand-accent, #0EA5E9); font-weight:700; margin-bottom:1rem;">About</p>
+      <h1 style="font-size:clamp(2.25rem,5vw,3.5rem); font-weight:800; letter-spacing:-0.03em; line-height:1.1; margin-bottom:1.25rem;">
+        Software reviews from a team that actually operates.
+      </h1>
+      <p style="font-size:1.15rem; line-height:1.6; opacity:0.85; margin-bottom:0;">
+        {site.tagline}
+      </p>
+    </div>
+  </section>
+
+  <section style="padding:2rem 2rem 5rem;">
+    <div style="max-width:740px; margin:0 auto;">
+
+      <h2 style="font-size:1.75rem; font-weight:700; margin:2.5rem 0 1rem;">Who we are</h2>
+      <p style="line-height:1.7; margin-bottom:1rem;">
+        The {site.name} team is a working collective of {site.niche}. Between us we've deployed thousands of software stacks across every category we cover — not evaluated at trade shows, not judged by feature lists, but run day-to-day in real operations.
+      </p>
+      <p style="line-height:1.7; margin-bottom:1rem;">
+        We publish under one team byline because our reviews are consensus work, not any one person's take. When we say a tool is worth it, three of us have run it. When we say to skip it, at least two of us tried and switched off.
+      </p>
+
+      <h2 style="font-size:1.75rem; font-weight:700; margin:2.5rem 0 1rem;">How we evaluate software</h2>
+      <ol style="line-height:1.8; padding-left:1.5rem;">
+        <li><strong>Real deployment first.</strong> We only review tools we've actually run — usually for 30+ days, often longer. Free-trial reviews don't count.</li>
+        <li><strong>Total cost at scale.</strong> Sticker price is a lie. We compute real cost at 5, 10, 25 seats/locations/customers so operators know what they're actually buying.</li>
+        <li><strong>Failure modes matter more than features.</strong> Every tool has a happy-path demo. We test what breaks — data loss, sync failures, support latency, migration friction.</li>
+        <li><strong>Verdict, then reasoning.</strong> The first paragraph tells you whether to buy. The rest of the review defends the verdict with specifics.</li>
+        <li><strong>Update quarterly.</strong> Software changes. Our reviews get re-checked every 90 days; anything material gets a dated update note.</li>
+      </ol>
+
+      <h2 style="font-size:1.75rem; font-weight:700; margin:2.5rem 0 1rem;">Editorial standards</h2>
+      <ul style="line-height:1.8; padding-left:1.5rem;">
+        <li><strong>Editorially independent.</strong> Rankings are never for sale. Vendors can't pay to appear, move up, or remove critical coverage.</li>
+        <li><strong>Affiliate transparency.</strong> When we link to a product via an affiliate program, we disclose it. Affiliate status does <em>not</em> influence the review — bad tools get bad reviews regardless of commission.</li>
+        <li><strong>Sponsor-free reviews.</strong> No sponsored posts. No "featured placement" fees. If a tool is in a comparison, it earned its spot.</li>
+        <li><strong>Real names of vendors.</strong> We identify when a tool has an affiliate program with us and when it doesn't. Some of the tools we recommend most highly have no affiliate program at all.</li>
+      </ul>
+
+      <h2 style="font-size:1.75rem; font-weight:700; margin:2.5rem 0 1rem;">Corrections and tips</h2>
+      <p style="line-height:1.7; margin-bottom:1rem;">
+        Spotted an error or a price change we haven't caught? Have a tool we should evaluate? The team reads every message — write to <a href={`mailto:editors@${site.url.replace(/https?:\/\//,'')}`} style="color:var(--brand-accent, #0EA5E9); text-decoration:underline;">editors@{site.url.replace(/https?:\/\//,'')}</a>.
+      </p>
+
+      <div style="margin-top:3rem; padding:1.5rem 1.75rem; background:rgba(255,255,255,0.03); border-left:3px solid var(--brand-accent, #0EA5E9); border-radius:4px;">
+        <p style="margin:0; font-size:0.95rem; line-height:1.6;">
+          <strong>{site.name}</strong> is part of the Stacked Operator network — vertical-specific software review sites operated by the same team. See our sister sites at <a href="https://stackedoperator.com" style="color:var(--brand-accent, #0EA5E9);">stackedoperator.com</a>.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
 </Base>
