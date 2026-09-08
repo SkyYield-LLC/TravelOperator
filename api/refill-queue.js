@@ -302,10 +302,14 @@ async function generateTopics(apiKey, existingSlugs, trendingTopics, searchConso
     ? `\n\nKeywords our site is already getting impressions for in Google (prioritize writing more content on these topics): ${searchConsoleKeywords.join(', ')}`
     : '';
 
-  const systemPrompt = `You are the content strategist for OperatorStack.tech, a software review site for multi-location business operators. The site earns revenue through these recurring affiliate programs:
+  const SITE_NAME = process.env.PUBLIC_SITE_NAME || 'OperatorStack';
+  const SITE_URL = process.env.PUBLIC_SITE_URL || 'https://operatorstack.tech';
+  const SITE_NICHE = process.env.PUBLIC_SITE_NICHE || process.env.EDITORIAL_NICHE || 'multi-location business operators';
+
+  const systemPrompt = `You are the content strategist for ${SITE_NAME} (${SITE_URL}), a software review site targeting ${SITE_NICHE}. The site earns revenue through these recurring affiliate programs:
 ${programList}
 
-Target audience: business owners running 3-50+ locations (restaurants, gyms, salons, retail, service businesses). They search for software reviews, comparisons, and best-of guides before buying.${trendsSection}${scSection}
+Target audience: ${SITE_NICHE}. They search for software reviews, comparisons, and best-of guides before buying. Every article MUST be niche-specific to ${SITE_NICHE} — never write generic "multi-location business" content that would fit any vertical.${trendsSection}${scSection}
 
 Generate article topics that:
 - Target high buying-intent keywords operators actually search
@@ -316,7 +320,7 @@ Generate article topics that:
 
 Already published: ${existingSlugs.join(', ')}`;
 
-  const userPrompt = `Generate exactly ${NEW_TOPICS_COUNT} new article ideas for OperatorStack. Return ONLY a valid JSON array with no explanation, no markdown, no preamble:
+  const userPrompt = `Generate exactly ${NEW_TOPICS_COUNT} new article ideas for ${SITE_NAME} targeting ${SITE_NICHE}. Titles and topics MUST be specific to this niche — no generic "multi-location business" framing. Return ONLY a valid JSON array with no explanation, no markdown, no preamble:
 
 [
   {

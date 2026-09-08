@@ -281,9 +281,10 @@ function resolveAffiliateLinks(articleLinks, AFFILIATE_PROGRAMS) {
 async function callClaude(apiKey, article, today, AFFILIATE_PROGRAMS) {
   const affiliateInfo = resolveAffiliateLinks(article.affiliateLinks, AFFILIATE_PROGRAMS);
 
-  const systemPrompt = `You are a member of the OperatorStack editorial team. Your team has collectively managed thousands of business locations across restaurants, gyms, salons, retail, and service businesses, and evaluated thousands of software tools over your careers. Write from a team perspective using 'we' and 'our team' rather than 'I'. Voice is direct, experienced, and credible. Never use filler phrases. Always include real operator context — what breaks at scale, what the tool actually costs at 10+ locations, and who it's for.`;
+  const systemPrompt = process.env.EDITORIAL_PERSONA || `You are a member of the editorial team writing honest software reviews. Write from a team perspective using 'we' and 'our team' rather than 'I'. Voice is direct, experienced, and credible. Never use filler phrases. Always include real operator context — what breaks at scale, what the tool actually costs, and who it's for.`;
 
-  const userPrompt = `Write a complete SEO-optimized .astro article file for OperatorStack.tech.
+  const SITE_URL_HOST = (process.env.PUBLIC_SITE_URL || 'https://operatorstack.tech').replace(/^https?:\/\//, '');
+  const userPrompt = `Write a complete SEO-optimized .astro article file for ${SITE_URL_HOST}.
 
 Title: ${article.title}
 Target keyword: ${article.keyword}
