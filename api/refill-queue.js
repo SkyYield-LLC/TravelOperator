@@ -341,7 +341,7 @@ Make titles specific and operator-focused. Target keywords with clear commercial
       'anthropic-workspace-id': process.env.ANTHROPIC_WORKSPACE_ID,
     },
     body: JSON.stringify({
-      model: 'claude-sonnet-4-20250514',
+      model: 'claude-sonnet-4-6',
       max_tokens: 2048,
       system: systemPrompt,
       messages: [{ role: 'user', content: userPrompt }],
