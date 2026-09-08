@@ -334,7 +334,7 @@ Already published: ${existingSlugs.join(', ')}`;
   }
 ]
 
-Make titles specific and operator-focused. Target keywords with clear commercial intent. Cover a mix of reviews, comparisons, and guides across different affiliate programs.`;
+Make titles specific and operator-focused. Target keywords with clear commercial intent. CONTENT MIX (strict): 60% Comparison ("X vs Y" or "Best X for Y"), 25% Review (single product deep-dive), 15% Guide. Comparisons rank fastest in Google because they capture bottom-funnel intent — bias toward them. Every batch of 10 topics MUST contain at least 6 comparisons.`;
 
   const response = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
