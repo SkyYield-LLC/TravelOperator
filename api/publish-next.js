@@ -313,7 +313,11 @@ Article body requirements:
 1. verdict-box div at top with bottom line up front (2-3 sentences, the honest verdict)
 
 2. RIGHT AFTER the verdict-box, insert an "Our Pick" component using CtaCard:
-   <CtaCard slug='[primary affiliate slug]' title='[Product name]' rating={[0-5 with .1 precision]} bestFor='[audience]' price='[price/mo or one-liner]' ctaLabel='Try [Product] →' />
+   <CtaCard slug='[primary affiliate slug]' title="[Product name]" rating={4.5} bestFor="[audience]" price="[price/mo or one-liner]" ctaLabel="Try [Product] →" />
+   HARD RULES for CtaCard and every JSX-like attribute:
+   - rating MUST be a numeric expression: rating={4.5}. NEVER rating="4.5" or rating='4.5'.
+   - Any attribute value containing an apostrophe MUST use double quotes, e.g. title="Product's Best" (NOT title='Product's Best' — that's an unterminated string and breaks the build).
+   - When in doubt, prefer double quotes everywhere.
    Only include this if the article is about ONE primary product (single-tool review). Skip for pure "best-of" listicles.
 
 3. quick-stats div with 4 stats: rating, price, key metric, affiliate %
