@@ -1,0 +1,123 @@
+---
+/**
+ * StickyCta — fixed bottom bar promoting the site's top affiliate.
+ * Appears after 40% scroll, dismissible per session.
+ * Reads first affiliate from src/data/affiliates.ts as the default target.
+ */
+import { getAffiliate } from '../data/affiliates';
+import affiliatesJson from '../data/affiliates.json';
+
+interface Props {
+  slug?: string;
+  label?: string;
+  ctaText?: string;
+}
+
+// Default slug = first entry in affiliates.json (site's flagship affiliate)
+const list = Array.isArray(affiliatesJson) ? affiliatesJson : (affiliatesJson as any).affiliates ?? [];
+const defaultSlug = list[0]?.slug ?? '';
+
+const { slug = defaultSlug, label, ctaText } = Astro.props;
+
+const affiliate = slug ? getAffiliate(slug) : null;
+const displayName = label || affiliate?.name || slug || 'Recommended';
+const finalCta = ctaText || `Try ${displayName} →`;
+---
+
+{slug && (
+  <div id="sticky-cta" class="sticky-cta" data-slug={slug} aria-hidden="true">
+    <span class="sticky-cta-copy">
+      <strong>{displayName}</strong> — {affiliate?.commission || 'our top pick'}
+    </span>
+    <a href={`/recommends/${slug}`} class="sticky-cta-btn" rel="nofollow sponsored" data-sticky-cta-click>{finalCta}</a>
+    <button type="button" class="sticky-cta-close" aria-label="Dismiss" data-sticky-cta-close>×</button>
+  </div>
+)}
+
+<style>
+  .sticky-cta {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    background: var(--brand-accent, #0EA5E9);
+    color: #fff;
+    box-shadow: 0 -4px 24px rgba(0,0,0,0.12);
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+    font-size: 0.95rem;
+  }
+  .sticky-cta.visible { transform: translateY(0); }
+  .sticky-cta-copy { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .sticky-cta-btn {
+    background: #fff;
+    color: var(--brand-accent, #0EA5E9);
+    padding: 0.55rem 1.1rem;
+    border-radius: 0.4rem;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .sticky-cta-btn:hover { opacity: 0.9; }
+  .sticky-cta-close {
+    background: transparent;
+    color: #fff;
+    border: none;
+    font-size: 1.5rem;
+    line-height: 1;
+    padding: 0 0.25rem;
+    cursor: pointer;
+    opacity: 0.8;
+  }
+  .sticky-cta-close:hover { opacity: 1; }
+  @media (max-width: 640px) {
+    .sticky-cta { font-size: 0.85rem; padding: 0.6rem 0.75rem; }
+    .sticky-cta-btn { padding: 0.5rem 0.8rem; }
+  }
+</style>
+
+<script>
+  const bar = document.getElementById('sticky-cta');
+  if (bar) {
+    const KEY = 'sticky-cta-dismissed';
+    // Respect prior dismiss within same session
+    if (sessionStorage.getItem(KEY)) {
+      bar.remove();
+    } else {
+      let shown = false;
+      const onScroll = () => {
+        if (shown) return;
+        const article = document.querySelector('.article-main') || document.body;
+        const rect = article.getBoundingClientRect();
+        const scrollTop = window.pageYOffset;
+        const articleTop = rect.top + scrollTop;
+        const articleHeight = article.scrollHeight;
+        const viewportBottom = scrollTop + window.innerHeight;
+        const progress = (viewportBottom - articleTop) / articleHeight;
+        if (progress > 0.4) {
+          bar.classList.add('visible');
+          bar.setAttribute('aria-hidden', 'false');
+          shown = true;
+          window.removeEventListener('scroll', onScroll);
+        }
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      // Also show after 20s regardless
+      setTimeout(() => { if (!shown) { onScroll(); shown = true; } }, 20000);
+
+      bar.querySelector('[data-sticky-cta-close]')?.addEventListener('click', () => {
+        sessionStorage.setItem(KEY, '1');
+        bar.classList.remove('visible');
+        setTimeout(() => bar.remove(), 300);
+      });
+      bar.querySelector('[data-sticky-cta-click]')?.addEventListener('click', () => {
+        // Fire event to Portfolio Analytics if present
+        try { (window as any).paTrack?.('event', { name: 'sticky-cta-click', slug: bar.dataset.slug }); } catch (_) {}
+      });
+    }
+  }
+</script>

@@ -1,6 +1,8 @@
 ---
 import Base from './Base.astro';
 import AuthorBio from '../components/AuthorBio.astro';
+import StickyCta from '../components/StickyCta.astro';
+import NewsletterSignup from '../components/NewsletterSignup.astro';
 import Disclosure from '../components/Disclosure.astro';
 import ReadingProgress from '../components/ReadingProgress.astro';
 import { site } from '../config/site';
@@ -162,6 +164,8 @@ const reviewLd = effectiveReview
           </ul>
         </div>
 
+        <NewsletterSignup />
+
         <AuthorBio />
 
         {affiliateDisclosure && <Disclosure variant="footer" />}
@@ -212,4 +216,5 @@ const reviewLd = effectiveReview
       }
     </script>
   </article>
+  <StickyCta />
 </Base>
