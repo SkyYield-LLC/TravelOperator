@@ -355,7 +355,7 @@ Article body requirements:
       'anthropic-workspace-id': process.env.ANTHROPIC_WORKSPACE_ID,
     },
     body: JSON.stringify({
-      model: 'claude-opus-4-5',
+      model: 'claude-sonnet-4-6',
       max_tokens: 4096,
       system: systemPrompt,
       messages: [{ role: 'user', content: userPrompt }],
