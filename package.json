@@ -14,10 +14,10 @@
     "sync:settings": "node scripts/sync-site-settings.mjs"
   },
   "dependencies": {
-    "@astrojs/mdx": "^5.0.0",
+    "@astrojs/mdx": "^8.0.1",
     "@astrojs/rss": "^4.0.17",
     "@astrojs/sitemap": "^3.7.1",
-    "astro": "^6.0.4"
+    "astro": "^7.3.2"
   },
   "devDependencies": {
     "pagefind": "^1.5.0"
